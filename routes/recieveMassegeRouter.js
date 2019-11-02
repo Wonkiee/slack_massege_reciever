@@ -8,7 +8,7 @@ const stringHandle = require("../services/stringHandle");
 router.post("/", function(req, res) {
   let requestBody = req.body;
 
-  try { console.log(requestBody)
+  try {
     if (!requestBody) {
       res.sendStatus(200);
     }
