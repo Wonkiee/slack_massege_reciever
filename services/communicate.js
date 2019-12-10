@@ -1,6 +1,9 @@
 require("dotenv").config();
 const client = require("twilio")(process.env.ACCOUNT_SID, process.env.TOKEN);
 const constants = require("../utils/constants");
+const SERVICE_STATUS_TYPES = constants.SERVICE_STATUS_TYPES;
+const activeNumbers = require('../resources/activeNumbers');
+let ACTIVE_NUMBERS = activeNumbers.ACTIVE_NUMBERS;
 
 class Communicate {
 
@@ -40,6 +43,26 @@ class Communicate {
       }
     );
   };
+
+  getUserActiveState(userhoneNumber) {
+    return ACTIVE_NUMBERS[userhoneNumber].ACTIVE_STATE;
+  }
+
+  setUserActiveState(userhoneNumber, status) {
+    if(status) {
+      ACTIVE_NUMBERS[userhoneNumber].ACTIVE_STATE = SERVICE_STATUS_TYPES.RUNNING;
+      return;
+    }
+    ACTIVE_NUMBERS[userhoneNumber].ACTIVE_STATE = SERVICE_STATUS_TYPES.STOPPED;
+    return;
+  }
+
+  isPhoneNumberActive(phoneNumber) {
+    if(ACTIVE_NUMBERS[phoneNumber] === SERVICE_STATUS_TYPES.RUNNING) {
+      return true;
+    }
+    return false;
+  }
 }
 
 module.exports = new Communicate();
