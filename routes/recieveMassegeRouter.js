@@ -8,9 +8,9 @@ const SERVICE_STATUS_TYPES = constants.SERVICE_STATUS_TYPES;
 const ACTIVE_NUMBERS = constants.ACTIVE_NUMBERS;
 let SERVICE_STATUS = SERVICE_STATUS_TYPES.RUNNING;
 
-router.post("/", function(req, res) {
+router.post("/", (req, res) => {
   let requestBody = req.body;
-console.log('now', SERVICE_STATUS);
+  console.log('Service: ', SERVICE_STATUS);
   try {
     if (!requestBody) {
       res.sendStatus(200);
@@ -22,7 +22,7 @@ console.log('now', SERVICE_STATUS);
     if(requestBody.startService) {
       SERVICE_STATUS = SERVICE_STATUS_TYPES.RUNNING;
     }
-    console.log('then', SERVICE_STATUS);
+    console.log('Service', SERVICE_STATUS);
     if (requestBody.challenge) {
       res.send(requestBody.challenge);
       return;
@@ -31,11 +31,17 @@ console.log('now', SERVICE_STATUS);
       //&& stringHandle.searchString(requestBody.event.text, constants.KEYWORDS)) {
         (requestBody.event && requestBody.event.text){
         if (SERVICE_STATUS === SERVICE_STATUS_TYPES.RUNNING) {
-          //communicate.callUser(process.env.PHONE_NUMBER_ASANKA);
-          //communicate.callUser(process.env.PHONE_NUMBER_WISHWA);
-          //communicate.callUser(process.env.PHONE_NUMBER_RANDULA);
           if(communicate.getUserActiveState(process.env.PHONE_NUMBER_RAJITHA) === SERVICE_STATUS_TYPES.RUNNING) {
             communicate.callUser(process.env.PHONE_NUMBER_RAJITHA);
+          }
+          if(communicate.getUserActiveState(process.env.PHONE_NUMBER_ASANKA) === SERVICE_STATUS_TYPES.RUNNING) {
+            communicate.callUser(process.env.PHONE_NUMBER_ASANKA);
+          }
+          if(communicate.getUserActiveState(process.env.PHONE_NUMBER_WISHWA) === SERVICE_STATUS_TYPES.RUNNING) {
+            communicate.callUser(process.env.PHONE_NUMBER_WISHWA);
+          }
+          if(communicate.getUserActiveState(process.env.PHONE_NUMBER_RANDULA) === SERVICE_STATUS_TYPES.RUNNING) {
+            communicate.callUser(process.env.PHONE_NUMBER_RANDULA);
           }
         }
     }
@@ -48,16 +54,15 @@ console.log('now', SERVICE_STATUS);
   }
 });
 
-router.get("/", function(req, res) {
-  console.log('called')
+router.get("/", (req, res) => {
   res.sendStatus(200);
 });
 
-router.get("/active-numbers", function(req, res) {
+router.get("/active-numbers", (req, res) => {
   res.send(ACTIVE_NUMBERS).status(200);
 });
 
-router.post("/active-numbers", function(req, res) {
+router.post("/active-numbers", (req, res) => {
   if(!req.body) {
     return res.sendStatus(400);;
   }
@@ -73,7 +78,7 @@ router.post("/active-numbers", function(req, res) {
   }
 });
 
-router.get("/active-numbers-status", function(req, res) {
+router.get("/active-numbers-status", (req, res) => {
   if(!req || !req.body || req.body.phoneNumber) {
     return res.sendStatus(400);
   }
