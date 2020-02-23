@@ -31,11 +31,17 @@ console.log('now', SERVICE_STATUS);
       //&& stringHandle.searchString(requestBody.event.text, constants.KEYWORDS)) {
         (requestBody.event && requestBody.event.text){
         if (SERVICE_STATUS === SERVICE_STATUS_TYPES.RUNNING) {
-          //communicate.callUser(process.env.PHONE_NUMBER_ASANKA);
-          //communicate.callUser(process.env.PHONE_NUMBER_WISHWA);
-          //communicate.callUser(process.env.PHONE_NUMBER_RANDULA);
           if(communicate.getUserActiveState(process.env.PHONE_NUMBER_RAJITHA) === SERVICE_STATUS_TYPES.RUNNING) {
             communicate.callUser(process.env.PHONE_NUMBER_RAJITHA);
+          }
+          if(communicate.getUserActiveState(process.env.PHONE_NUMBER_ASANKA) === SERVICE_STATUS_TYPES.RUNNING) {
+            communicate.callUser(process.env.PHONE_NUMBER_ASANKA);
+          }
+          if(communicate.getUserActiveState(process.env.PHONE_NUMBER_WISHWA) === SERVICE_STATUS_TYPES.RUNNING) {
+            communicate.callUser(process.env.PHONE_NUMBER_WISHWA);
+          }
+          if(communicate.getUserActiveState(process.env.PHONE_NUMBER_RANDULA) === SERVICE_STATUS_TYPES.RUNNING) {
+            communicate.callUser(process.env.PHONE_NUMBER_RANDULA);
           }
         }
     }
