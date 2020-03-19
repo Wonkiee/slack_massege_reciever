@@ -1,5 +1,6 @@
 #!/usr/bin/env node
-
+//change the default configuration file location
+process.env['NODE_CONFIG_DIR'] = '/etc/cake_conf/slack_communicate_api/config/'
 /**
  * Module dependencies.
  */
